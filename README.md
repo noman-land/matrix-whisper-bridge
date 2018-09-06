@@ -33,7 +33,7 @@ A two-way bridge between the matrix protocol and the whisper protocol
     First connect to the running geth instance
 
     ```
-     geth --testnet attach
+    geth --testnet attach
 
     ```
 
