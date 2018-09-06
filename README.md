@@ -7,7 +7,7 @@ A two-way bridge between the matrix protocol and the whisper protocol
 1. Clone repository and enter project folder
 
     ```
-    git clone ...
+    git clone https://github.com/noman-land/matrix-whisper-bridge.git
     cd matrix-whisper-bridge
     
     ```
