@@ -19,7 +19,7 @@ A two-way bridge between the matrix protocol and the whisper protocol
 
     ```
     
-3. Install geth
+3. [Install geth](https://github.com/ethereum/go-ethereum/wiki/Building-Ethereum)
 
 4. Launch lightweight testnet with proper whisper settings for Status chat protocol
 
