@@ -40,3 +40,8 @@ A two-way bridge between the matrix protocol and the whisper protocol
     peers.forEach(function addPeer(peer) { admin.addPeer(peer); });
     exit
     ```
+6. Run the app:
+
+    ```
+    npm start
+    ```
