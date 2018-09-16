@@ -1,6 +1,6 @@
 const WhisperUtils = require('../utils/whisperUtils');
 
-class MatrixRiotBridge {
+class MatrixWhisperBridge {
   init() {
     return Promise.all([
       this.connectToWhisper(),
@@ -19,4 +19,4 @@ class MatrixRiotBridge {
   }
 }
 
-module.exports = MatrixRiotBridge;
+module.exports = MatrixWhisperBridge;

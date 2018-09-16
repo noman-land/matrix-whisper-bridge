@@ -1,11 +1,11 @@
 //const transit = require('transit-js');
 
-const MatrixRiotBridge = require('./app/MatrixRiotBridge');
+const MatrixWhisperBridge = require('./app/MatrixWhisperBridge');
 const { decodeStatusPayload } = require('./utils/statusUtils');
 
 const CHANNEL = 'noman-test';
 
-const bridge = new MatrixRiotBridge();
+const bridge = new MatrixWhisperBridge();
 
 bridge.init().then(([whisperUtils]) => {
   whisperUtils.getPublicKey().then(publicKey => {
