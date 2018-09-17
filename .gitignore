@@ -1,4 +1,6 @@
 node_modules
 .idea
-dist
 .env
+room-store.db
+user-store.db
+whisper-registration.yaml

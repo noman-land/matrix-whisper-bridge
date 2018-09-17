@@ -1,64 +1,63 @@
 const net = require('net');
 const Web3 = require('web3');
 
+const { STATUS_POW } = require('./constants');
+
 const {
   createStatusPayload,
   topicFromChannelName,
 } = require('./statusUtils');
 
-const CHANNEL = 'noman-test';
-
 class WhisperUtils {
-  init() {
+  constructor() {
     this.web3 = new Web3(new Web3.providers.IpcProvider(
       process.env.GETH_IPC_PATH,
       net,
     ));
 
     this.shh = this.web3.shh;
+    this.symKeyFromChannelName = this.symKeyFromChannelName();
+  }
 
-    return new Promise((resolve, reject) => {
-      this.createWhisperIdentity().then(
-        sig => {
-          this.sig = sig;
-          resolve(this);
-        },
-        error => reject(error),
-      );
+  init() {
+    return this.shh.newKeyPair().then(sig => {
+      this.sig = sig;
+      return this.shh.getPublicKey(sig);
     });
   }
 
-  createWhisperIdentity() {
-    return this.shh.newKeyPair();
-  }
+  symKeyFromChannelName() {
+    const channels = {};
+    return room => {
+      if (channels[room]) {
+        return Promise.resolve(channels[room]);
+      }
 
-  getPublicKey() {
-    return this.shh.getPublicKey(this.sig);
+      return this.shh.generateSymKeyFromPassword(room).then(symKeyID => {
+        channels[room] = symKeyID;
+        return channels[room];
+      });
+    };
   }
 
   listen(channel) {
     const topic = topicFromChannelName(channel);
 
-    return new Promise(resolve => {
-      this.shh.generateSymKeyFromPassword(channel)
-        .then(symKeyID => {
-          const subscription = this.shh.subscribe('messages', {
-            minPow: 0.002,
-            symKeyID,
-            topics: [topic],
-          });
-          resolve(subscription);
-        });
-    });
+    return this.symKeyFromChannelName(channel)
+      .then(symKeyID => this.shh.subscribe('messages', {
+        minPow: STATUS_POW,
+        symKeyID,
+        topics: [topic],
+      }));
   }
 
   send(channel, message) {
     const payload = createStatusPayload({ content: message });
 
-    return this.shh.generateSymKeyFromPassword(channel)
+    return this.symKeyFromChannelName(channel)
       .then(symKeyID => this.shh.post({
         payload,
-        powTarget: 0.002,
+        powTarget: STATUS_POW,
         powTime: 1,
         sig: this.sig,
         symKeyID,
