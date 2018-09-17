@@ -41,7 +41,7 @@ class MatrixUtils {
 
   register() {
     const reg = new AppServiceRegistration();
-    reg.setAppServiceUrl('https://matrix.status.im');
+    reg.setAppServiceUrl(STATUS_MATRIX_SERVER_URL);
     reg.setId(AppServiceRegistration.generateToken());
     reg.setHomeserverToken(AppServiceRegistration.generateToken());
     reg.setAppServiceToken(AppServiceRegistration.generateToken());
