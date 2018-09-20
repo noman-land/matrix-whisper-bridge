@@ -65,11 +65,10 @@ class MatrixWhisperBridge {
 
     const username = generateGfy(sig);
     const isMe = this.isMe(sig);
-    const name = isMe ? 'Bot' : sig.slice(0, 10);
 
-    //console.log('From:', name, 'at', timestamp);
-    //console.log('Topic:', topic);
-    //console.log('Message:', message, '\n');
+    console.log(`${username}:`, message);
+    console.log('At:', timestamp);
+    console.log('Topic: [', topic, ']\n');
 
     const { roomId } = this.roomsByTopic[topic] || {};
 
