@@ -4,6 +4,7 @@ const MatrixUtils = require('../utils/matrixUtils');
 const WhisperUtils = require('../utils/whisperUtils');
 const { TEST_CHANNEL } = require('../utils/constants');
 const { decodeStatusPayload } = require('../utils/statusUtils');
+const { generateGfy } = require('../utils/usernameTriplets/core');
 
 class MatrixWhisperBridge {
   constructor() {
@@ -60,13 +61,15 @@ class MatrixWhisperBridge {
   handleWhisperMessage(options) {
     const { payload, sig, timestamp, topic } = options;
     const [, [message, mimeType]] = decodeStatusPayload(payload);
-    console.log(decodeStatusPayload(payload));
+    //console.log(decodeStatusPayload(payload));
+
+    const username = generateGfy(sig);
     const isMe = this.isMe(sig);
     const name = isMe ? 'Bot' : sig.slice(0, 10);
 
-    console.log('From:', name, 'at', timestamp);
-    console.log('Topic:', topic);
-    console.log('Message:', message, '\n');
+    //console.log('From:', name, 'at', timestamp);
+    //console.log('Topic:', topic);
+    //console.log('Message:', message, '\n');
 
     const { roomId } = this.roomsByTopic[topic] || {};
 
@@ -74,7 +77,7 @@ class MatrixWhisperBridge {
       return null;
     }
 
-    return this.matrix.send(roomId, `${message} back`, mimeType);
+    return this.matrix.send(roomId, `${username}: ${message}`, mimeType);
   }
 
   isMe(sig) {

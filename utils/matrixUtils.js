@@ -12,11 +12,11 @@ const { trimHashSign } = require('./utils');
 
 class MatrixUtils {
   constructor() {
-    //this.client = sdk.createClient({
-    //  accessToken: MATRIX_ACCESS_TOKEN,
-    //  baseUrl: STATUS_MATRIX_SERVER_URL,
-    //  userId: '@noman:status.im',
-    //});
+    this.client = sdk.createClient({
+      accessToken: MATRIX_ACCESS_TOKEN,
+      baseUrl: STATUS_MATRIX_SERVER_URL,
+      userId: '@noman:status.im',
+    });
 
     this.bridge = new Bridge({
       homeserverUrl: STATUS_MATRIX_SERVER_URL,

@@ -1,14 +1,15 @@
 const adjectives = require('./adjectives');
 const animals = require('./animals');
 const { randGen, seededRandNth } = require('./random');
+const { capitalizeFirstLetter } = require('../utils');
 
 const pickRandom = (gen, vector) => seededRandNth(gen, vector);
 
 const buildGfy = publicKey => {
   const gen = randGen(publicKey);
-  const firstAdjective = pickRandom(gen, adjectives);
-  const secondAdjective = pickRandom(gen, adjectives);
-  const animal = pickRandom(gen, animals);
+  const firstAdjective = capitalizeFirstLetter(pickRandom(gen, adjectives));
+  const secondAdjective = capitalizeFirstLetter(pickRandom(gen, adjectives));
+  const animal = capitalizeFirstLetter(pickRandom(gen, animals));
   return `${firstAdjective} ${secondAdjective} ${animal}`;
 };
 
