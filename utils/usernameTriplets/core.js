@@ -1,3 +1,5 @@
+// Wholesale ripoff of https://github.com/status-im/status-react/blob/e7427997d253ed04e0c5f7044fbfefa24b31a7a8/src/status_im/utils/gfycat/core.cljs
+
 const adjectives = require('./adjectives');
 const animals = require('./animals');
 const { randGen, seededRandNth } = require('./random');
