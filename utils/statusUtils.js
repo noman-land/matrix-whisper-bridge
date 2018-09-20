@@ -1,8 +1,9 @@
+//const transit = require('transit-js');
 const Web3 = require('web3');
 
-const web3 = new Web3();
-
-const { utils: { asciiToHex, hexToAscii, sha3 } } = web3;
+const {
+  utils: { asciiToHex, hexToAscii, sha3 },
+} = new Web3();
 
 function createStatusPayload(
   {
